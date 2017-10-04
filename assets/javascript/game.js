@@ -8,109 +8,171 @@
 
 $(document).ready(function() {
 
+//Variable Declarations
+	var nameList = ["Batman", "Joker", "Red Hood", "Robin"];
+	var imageList = ["assets/images/Batman.jpg", "assets/images/Joker.jpg", "assets/images/Redhood.jpg", "assets/images/Robin.jpg"];
+	var healthList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(250-100 +1))+100);
+	var attackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(50-10 +1))+10);
+	var counterAttackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(100-10 +1))+10);
 
-var character = {
-	name: ["Batman", "Joker", "Red Hood", "Robin"],
-	image: ["assets/images/Batman.jpg", "assets/images/Joker.jpg", "assets/images/Redhood.jpg", "assets/images/Robin.jpg"],
-	health: Array.from({length: 4}, () => Math.floor(Math.random()*(250-100 +1))+100),
-	attack: Math.floor(Math.random()*(50-10 +1))+10,
-	counterAttack: Math.floor(Math.random()*(50-10 +1))+10,
-};
+	var newAttack;
+	var baseAttack;
 
+	var character = {};
+	var roster = {};
+//=========================================================================
 
-// Array.from({length: character.name.length}, () => Math.floor(Math.random()*(250-100 +1))+100);
+//Function Declarations
+	function createCharacter(i){
+		character[i] = {
+			name: nameList[i],
+			image: imageList[i],
+			health: healthList[i],
+			attack: attackList[i],
+			counterAttack: counterAttackList[i],
+		};
+	}
 
-// $.each(obj, function (index, value) {
-//   console.log(value);
-// });
+	function generateRoster(){
 
-function generateRoster(){
-
-	for(i=0; i<character.name.length; i++){
-
-			console.log("start: " + i);
-
+		for(i=0; i<nameList.length; i++){
 			//create a button
 			var characterButton = $("<button>");
+			characterButton.attr("data-character_id", i);
 			characterButton.addClass("characterBtn");
-			characterButton.attr("data-name", character.name[i]);
 
 			//create the name label
 			characterButton.append("<h4><span></span></h4>");
-			$(".characterBtn h4 span").addClass("name");
-			console.log(character.name[i]);
 
 			//set the button image
 			characterButton.append("<img>");
-			$(".characterBtn  img").addClass("image");
-			console.log(character.image[i]);
 
 			//create the health label
 			characterButton.append("<h5><span></span></h5>");
-			$(".characterBtn h5 span").addClass("health");
 
 			//add the button the the roster
+			$(".roster").append(characterButton);		
+		}
 
-			$(".roster").append(characterButton);
-			console.log("end: " + i);
-			console.log("==============================================");
+		for(i=0; i<nameList.length; i++){
+			$(".characterBtn h4 span").addClass("name");
+			$(".characterBtn  img").addClass("image");
+			$(".characterBtn h5 span").addClass("health");
+		}
 
+		$(".name").each(function(i){
+			$(this).html(character[i].name);
+		})
+
+		$(".image").each(function(i){
+			$(this).attr("src", character[i].image);
+		})
+
+		$(".health").each(function(i){
+			$(this).html(character[i].health);
+		})
 	}
 
-	$(".name").each(function(i){
-		$(this).html(character.name[i]);
-	})
+	function attack(attacker, defender){
 
-	$(".image").each(function(i){
-		$(this).attr("src", character.image[i]);
-	})
+		if(character[defender].health >= 0){
+			character[defender].health=Math.max(0, character[defender].health-character[attacker].attack);
+		}
 
-	$(".health").each(function(i){
-		$(this).html(character.health[i]);
-	})
+		$(".defender .health" ).html(character[defender].health);
+		console.log(character[attacker].name + " attacks " + character[defender].name + " for " + character[attacker].attack + " damage.");
 
+		newAttack = character[attacker].attack+baseAttack;
+	}
 
-	$(".characterBtn").on("click", function(){
+	function counterAttack(attacker, defender){
+		if (character[attacker].health >= 0){
+			character[attacker].health=Math.max(0, character[attacker].health-character[defender].counterAttack);
+		}
 
-		if($("#currentCharacter").is(":empty")){
-		$("#currentCharacter").append(this);
+		$(".attacker .health").html(character[attacker].health);
+		console.log(character[defender].name + " attacks " + character[attacker].name + " for " + character[defender].counterAttack + " damage.");
+	}
+
+	function selectCharacter(){
+
+			if($("#currentCharacter").is(":empty")){
+				$(this).addClass("attacker");
+				var i = $(this).data("character_id");
+				$("#currentCharacter").append(this);
+				baseAttack = character[i].attack;
+				console.log("Player character  is: " + character[i].name);
+			}
+
+			else{
+				$(this).addClass("defender");
+				var i = $(this).data("character_id");
+				$("#defender").append(this);
+				console.log("Enemy character  is: " + character[i].name);
+			}
+	}
+
+	function battle(){
+
+		if($("#currentCharacter").is(":empty")){	
+			console.log("Choose a fighter!");
+		}
+
+		if($("#defender").is(":empty")){	
+			console.log("There are no enemies here!");
 		}
 
 		else{
-			$("#defender").append(this);
+			var a = $(".attacker").data("character_id");
+			var d = $(".defender").data("character_id");
+
+			if(character[a].health>0){
+				attack(a,d);
+				character[a].attack=newAttack;
+			}
+
+			if(character[d].health>0){
+				counterAttack(a,d);
+			}
+
+			if(character[a].health<=0){
+				console.log(character[d].name + " has defeated " + character[a].name);
+				$("#currentCharacter").empty();
+			}
+
+			if(character[a].health<=0 && $(".roster").is(":empty")){
+				console.log("You have no fighters left! Game Over!");
+			}
+
+			if(character[d].health<=0){
+				console.log(character[a].name + " has defeated " + character[d].name);
+				$("#defender").empty();
+			}
+
+			if(character[d].health<=0 && $(".roster").is(":empty")){
+				console.log("You have defeated all enemies! You Win!");
+			}
 		}
-
-	});
-
-}
+	}
+//=========================================================================
 
 
+//Gameplay
+	for (i=0; i<nameList.length; i++){
+		createCharacter(i);
+	}
 
+	generateRoster();
 
+	$(".characterBtn").on("click", selectCharacter);
 
-
-// $(".characterBtn").on("click", function(){
-
-// 	$("#currentCharacter").append(characterButton);
-
-// });
-	
-generateRoster();
-
-
-
+	$("#attackBtn").on("click", battle);
+//=========================================================================
 
 });
 
 
 
-// function generateCharacters(){
 
-// for(i=0; i++; i<character.name.length){
-// 	myName = character.name[Math.floor(Math.random()*character.name.length)];
 
-// 	$(".name").html(character.name[character.name.indexOf(myName)]);
-// 	$(".health").html(character.health);
-// 	$(".image").attr("src", character.image[character.name.indexOf(myName)]);
-// 	}
-// }
+

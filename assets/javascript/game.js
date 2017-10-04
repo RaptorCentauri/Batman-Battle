@@ -26,7 +26,7 @@ $(document).ready(function() {
 //Function Declarations
 	function createCharacter(i){
 		character[i] = {
-			name: nameList[i][0],
+			name: nameList[[i],[0]],
 			//image: nameList[[i][1]],
 			health: healthList[i],
 			attack: attackList[i],

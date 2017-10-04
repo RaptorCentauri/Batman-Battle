@@ -4,7 +4,8 @@
 // charcater attacks and do some math
 //defender attacks and do some math,
 
-
+// All that is needed to add characters to the game is to add the name to the nameList array. An image can be added at the respective index in imageList Array
+// however the game will still function without it.
 
 $(document).ready(function() {
 

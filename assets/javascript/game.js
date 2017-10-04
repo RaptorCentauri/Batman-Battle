@@ -80,7 +80,7 @@ $(document).ready(function() {
 		}
 
 		$(".defender .health" ).html(character[defender].health);
-		console.log(character[attacker].name + " attacks " + character[defender].name + " for " + character[attacker].attack + " damage.");
+		$(".gameLog").append(character[attacker].name + " attacks " + character[defender].name + " for " + character[attacker].attack + " damage." + "<br>");
 
 		newAttack = character[attacker].attack+baseAttack;
 	}
@@ -91,35 +91,56 @@ $(document).ready(function() {
 		}
 
 		$(".attacker .health").html(character[attacker].health);
-		console.log(character[defender].name + " attacks " + character[attacker].name + " for " + character[defender].counterAttack + " damage.");
+		$(".gameLog").append(character[defender].name + " attacks " + character[attacker].name + " for " + character[defender].counterAttack + " damage." + "<br>");
 	}
 
 	function selectCharacter(){
+		
+
+			if(!$("#currentCharacter").is(":empty") && !$("#defender").is(":empty")){
+				var i = $(this).data("character_id");
+				$(".gameLog").empty();
+				$(".gameLog").append("The Arena is full!" + "<br>" + character[i].name + " is not able to fight!");
+			}
 
 			if($("#currentCharacter").is(":empty")){
 				$(this).addClass("attacker");
 				var i = $(this).data("character_id");
 				$("#currentCharacter").append(this);
 				baseAttack = character[i].attack;
-				console.log("Player character  is: " + character[i].name);
+				$(this).prop("disabled",true);
+				$(".gameLog").empty();
+				$(".gameLog").append(character[i].name + " has joined the fight!" +"<br>");
 			}
 
-			else{
+			else if($("#defender").is(":empty")){
 				$(this).addClass("defender");
 				var i = $(this).data("character_id");
+				$(this).children("h4").css("background", "rgba(148,17,0, 0.45)")
+				$(this).children("h5").css("background", "rgba(148,17,0, 0.45)")
 				$("#defender").append(this);
-				console.log("Enemy character  is: " + character[i].name);
+				$(this).prop("disabled",true);
+				$(".gameLog").empty();
+				$(".gameLog").append(character[i].name + " has joined the fight!" +"<br>");
 			}
 	}
 
 	function battle(){
 
-		if($("#currentCharacter").is(":empty")){	
-			console.log("Choose a fighter!");
+		if(GameOver()){
+			newGame();
 		}
 
-		if($("#defender").is(":empty")){	
-			console.log("There are no enemies here!");
+		$(".gameLog").empty();
+
+		if($("#currentCharacter").is(":empty")){	
+
+			$(".gameLog").append("Choose a fighter!" + "<br>");
+		}
+
+		if(!$("#currentCharacter").is(":empty") && $("#defender").is(":empty")){	
+
+			$(".gameLog").append("There are no enemies here!" + "<br>");
 		}
 
 		else{
@@ -136,37 +157,92 @@ $(document).ready(function() {
 			}
 
 			if(character[a].health<=0){
-				console.log(character[d].name + " has defeated " + character[a].name);
+				$(".gameLog").append(character[d].name + " has defeated " + character[a].name + "." + "<br>");
 				$("#currentCharacter").empty();
 			}
 
 			if(character[a].health<=0 && $(".roster").is(":empty")){
-				console.log("You have no fighters left! Game Over!");
+				$(".gameLog").append("You have no fighters left! Game Over!" + "<br>");
 			}
 
 			if(character[d].health<=0){
-				console.log(character[a].name + " has defeated " + character[d].name);
+				$(".gameLog").append(character[a].name + " has defeated " + character[d].name + "."  + "<br>");
 				$("#defender").empty();
 			}
 
 			if(character[d].health<=0 && $(".roster").is(":empty")){
-				console.log("You have defeated all enemies! You Win!");
+				$(".gameLog").append("You have defeated all enemies! You Win!" + "<br>");
 			}
 		}
+
+		GameOver();
+
+	}
+
+
+
+	function GameOver(){
+		if($(".roster").is(":empty") && $("#defender").is(":empty")){
+			$("#attackBtn").html("PLAY AGAIN");
+			return true;
+		}
+
+		else if($(".roster").is(":empty") && $("#currentCharacter").is(":empty")){
+			console.log("Play again");
+			$("#attackBtn").html("PLAY AGAIN");
+			return true;
+		}
+
+		else{
+			return false;
+		}
+
+	}
+
+	function newGame(){
+		$(".gameLog").empty();
+		$("#currentCharacter").empty();
+		$("#defender").empty();
+
+		healthList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(250-100 +1))+100);
+		attackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(50-10 +1))+10);
+		counterAttackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(100-10 +1))+10);
+
+		character = {};
+		roster = {};
+
+		newAttack=null;
+		baseAttack=null;
+
+		for (i=0; i<nameList.length; i++){
+			createCharacter(i);
+		}
+
+		generateRoster();
+
+		$("#attackBtn").html("FIGHT!");
+
+		$(".characterBtn").on("click", selectCharacter);
+
+		$("#attackBtn").on("click", battle);
 	}
 //=========================================================================
 
 
 //Gameplay
+
 	for (i=0; i<nameList.length; i++){
 		createCharacter(i);
 	}
 
 	generateRoster();
 
+	$(".gameLog").append("Choose a fighter!" + "<br>");
+
 	$(".characterBtn").on("click", selectCharacter);
 
 	$("#attackBtn").on("click", battle);
+
 //=========================================================================
 
 });

@@ -2,27 +2,30 @@
 <html>
 <head>
 	<title>Battle Game</title>
+	<!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
 </head>
 <body>
 
-<div class="roster"></div>
+<div class="wrapper">
 
+	<div class="gameTitle"><h2>Batman Battle!</h2></div>
 
-<h1>Your Character</h1>
+<!-- Character Selection -->
+	<div class="roster"></div>
 
-<div id="currentCharacter"></div>
+<!-- Battle Section -->
+	<div class="battleBox">
+		<div id="currentCharacter"></div>
+		<button id="attackBtn"><h3>FIGHT!</h3></button>
+		<div id="defender"></div>
+	</div>
 
-<h1>Enemies Available to Attack</h1>
+<!-- Gameplay Logs -->
+	<div class="gameLog"></div>
 
-<h1>Fight Section</h1>
-
-
-<button id="attackBtn"><h3>Attack</h3></button>
-
-<h1>Defender</h1>
-
-<div id="defender"></div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="assets/javascript/game.js"></script>

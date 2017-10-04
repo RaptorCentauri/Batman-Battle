@@ -1,63 +1,135 @@
-.characterBtn{
-	width: 200px;
-	height: 200px;
-	/*padding: none;*/
-	position: relative;
-	border: 5px solid;
-	border-color: Green;
-	background-color: #000000;
-	margin: 10px;
 
+*{
+	font-family: 'Orbitron', sans-serif;
 }
 
-.characterBtn > img{
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	position: absolute;
-	z-index: 0;
+body{
+	background-image: url("../images/Background.jpg"); 
 }
 
-.characterBtn > h4{
-	top: -23px;
-	right: 0px;
-	position: absolute;
-	z-index: 1;
-	background-color: #074080;
-	color: #FFFFFF;
-	opacity: .65;
-	width: 80%;
-	height: 15%;
+/*Styles the character button*/
+	.characterBtn{
+		width: 200px;
+		height: 200px;
+		position: relative;
+		border: 2px solid;
+		border-color: #EDE4E4;
+		background-color: #000000;
+		margin: 10px;
+
+	}
+
+	.characterBtn > img{
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		position: absolute;
+		z-index: 0;
+	}
+
+	.characterBtn > h4{
+		top: -23px;
+		right: 0px;
+		position: absolute;
+		background: rgba(7,64,128, 0.45);
+		z-index: 1;
+		color: #EDE4E4;
+		border-color: #EDE4E4;
+		width: 80%;
+		height: 15%;
+		font-size: 150%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0 0 0 120px;
+		border-style: solid;
+		border-right: none;
+		border-top: none;
+
+	}
+
+	.characterBtn > h5{
+		background: rgba(7,64,128, 0.45);
+		z-index: 1;
+		position: absolute;
+		bottom: -28px;
+		left: 0;
+		border-style: solid;
+		border-left: none;
+		border-bottom: none;
+		color: #EDE4E4;
+		border-color: #EDE4E4;
+		width: 80%;
+		height: 15%;
+		font-size: 150%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0 120px 0 0;
+	}
+/*================*/
+
+/*Styles the attack button*/
+	#attackBtn{
+		background: none;
+		color: #EDE4E4;
+		border: none;
+		font-size: 200%;
+		letter-spacing: 3px;
+	}
+/*===============================*/
+
+
+
+.wrapper{
+	display: grid;
+	grid-template-rows: 1fr 3fr 4fr 1fr;
+	grid-auto-columns: minmax(100px, auto);
+	grid-row-gap: 2em;
+}
+
+.gameTitle{
+	/*justify-self: center;*/
+	text-align: center;
 	font-size: 150%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 0 0 0 120px;
-	border-style: solid;
-	/*border-size: 1px;*/
-	border-right: none;
-	border-top: none;
-
-}
-
-.characterBtn > h5{
-	z-index: 1;
-	position: absolute;
-	bottom: -28px;
-	left: 0;
-	background-color: #074080;
-	border-style: solid;
-	/*border-size: 1px;*/
-	border-left: none;
-	border-bottom: none;
 	color: #FFFFFF;
-	opacity: .65;
-	width: 80%;
-	height: 15%;
-	font-size: 150%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 0 120px 0 0;
+	border-bottom: 1px #FFFFFF solid;
+	width: 1fr;
+	box-sizing: border-box;
+
 }
+/*Styles the Character Selection*/
+	.roster{
+		justify-self: center;
+		align-self: center;
+	}
+/*=====================================*/
+
+/*Styles the battle area*/
+	.battleBox{
+		display: grid;
+		grid-template-columns: 2fr 1fr 2fr;
+		/*border: 2px #000000 solid;*/
+		align-items: center;
+	}
+
+	.battleBox > div{
+		justify-self: center;
+	}
+/*=====================================*/
+
+/*Styles the game logs*/
+	.gameLog{
+		width:65%;
+		color: #EDE4E4;
+		border: 1px #EDE4E4 solid;
+		border-radius: 30px;
+		justify-self:center;
+		background: rgba(7,64,128, 0.45);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 150%;
+	}
+/*====================================*/

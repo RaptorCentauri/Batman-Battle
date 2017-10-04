@@ -153,8 +153,6 @@ $(document).ready(function() {
 				character[a].attack=newAttack;
 			}
 			
-			GameOver();
-
 			if(character[d].health>0){
 				counterAttack(a,d);
 			}			

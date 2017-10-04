@@ -152,10 +152,12 @@ $(document).ready(function() {
 				attack(a,d);
 				character[a].attack=newAttack;
 			}
+			
+			GameOver();
 
 			if(character[d].health>0){
 				counterAttack(a,d);
-			}
+			}			
 
 			if(character[a].health<=0){
 				$(".gameLog").append(character[d].name + " has defeated " + character[a].name + "." + "<br>");

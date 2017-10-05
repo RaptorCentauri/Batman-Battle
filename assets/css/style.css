@@ -82,8 +82,8 @@ body{
 	justify-self: center;
 	text-align: center;
 	font-size: 150%;
-	color: #FFFFFF;
-	border-bottom: 1px #FFFFFF solid;
+	color: #EDE4E4;
+	border-bottom: 1px #EDE4E4 solid;
 	height: 100px;
 	box-sizing: border-box;	
 }
@@ -102,7 +102,7 @@ body{
 		display: grid;
 		grid-template-columns: repeat(3, 200px);
 		grid-template-rows: repeat(4, 200px); 
-		grid-gap: 5px;
+		grid-gap: 10px;
 	}
 /*=====================================*/
 
@@ -111,6 +111,9 @@ body{
 		grid-column: 2;
 		display: grid;
 		grid-auto-rows: 3fr 1fr;
+		border-left: 1px #EDE4E4 dashed;
+		margin-left: 50px;
+		margin-right: 50px;
 
 	}
 /*Styles the battle area*/
@@ -147,7 +150,7 @@ body{
 		justify-content: center;
 		font-size: 150%;
 		grid-row: 2;
-		height: 150px;
+		/*height: 150px;*/
 	}
 /*====================================*/
 

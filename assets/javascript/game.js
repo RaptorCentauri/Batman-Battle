@@ -10,14 +10,13 @@
 $(document).ready(function() {
 
 //Variable Declarations
-//	var nameList = [["Batman", "assets/images/Batman.jpg"], ["Joker", "assets/images/Joker.jpg"], ["Red Hood", "assets/images/Redhood.jpg"], ["Robin", "assets/images/Robin.jpg"]];
 	var nameList = [{charName: "Batman", charImage: "assets/images/Batman.jpg"}, {charName: "Joker", charImage: "assets/images/Joker.jpg"}, {charName: "Red Hood", charImage: "assets/images/Redhood.jpg"}, 
-		{charName: "Robin", charImage: "assets/images/Robin.jpg"}, {charName: "Catwoman", charImage: "assets/images/Catwoman.jpg" }, {charName: "Deathstroke", charImage:"assets/images/Deathstroke.jpg" }, {charName: "Mr. Freeze", charImage:"assets/images/MrFreeze.jpg" }, 
-		{charName: "Nightwing", charImage:"assets/images/Nightwing.jpg" }, {charName:"Penguin", charImage:"assets/images/Penguin.jpg" }, {charName:"Two Face", charImage:"assets/images/TwoFace.jpg" }  ]
-	//var imageList = ["assets/images/Batman.jpg", "assets/images/Joker.jpg", "assets/images/Redhood.jpg", "assets/images/Robin.jpg"];
-	var healthList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(250-100 +1))+100);
-	var attackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(50-10 +1))+10);
-	var counterAttackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(100-10 +1))+10);
+		{charName: "Robin", charImage: "assets/images/Robin.jpg"}, {charName: "Catwoman", charImage: "assets/images/Catwoman.jpg" }, {charName: "Deathstroke", charImage:"assets/images/Deathstroke.jpg" }, 
+		{charName: "Mr. Freeze", charImage:"assets/images/MrFreeze.jpg" },{charName: "Nightwing", charImage:"assets/images/Nightwing.jpg" }, {charName:"Penguin", charImage:"assets/images/Penguin.jpg" }, 
+		{charName:"Two Face", charImage:"assets/images/TwoFace.jpg" }, {charName:"Bane", charImage:"assets/images/Bane.jpg" }, {charName:"Poison Ivy", charImage:"assets/images/PoisonIvy.jpg" }  ]
+	var healthList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(300-100 +1))+100); //character health ranges from 100 to 300
+	var attackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(50-10 +1))+10); // character attack ranges from 10 to 40
+	var counterAttackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(100-10 +1))+10); //character counter attack ranges from 10 to 100
 
 	var newAttack;
 	var baseAttack;
@@ -27,6 +26,8 @@ $(document).ready(function() {
 //=========================================================================
 
 //Function Declarations
+
+	//This is used to randomize the character list
 	function shuffle(a) {
     	for (let i = a.length; i; i--) {
        		let j = Math.floor(Math.random() * i);
@@ -34,7 +35,7 @@ $(document).ready(function() {
     	}
 	}
 	
-	
+	//Build the characters 	
 	function createCharacter(i){
 		character[i] = {
 			name: nameList[i].charName,
@@ -45,9 +46,12 @@ $(document).ready(function() {
 		};
 	}
 
+	//This builds the characters on the playing field. There can be anywhere from 4 to the maximum # of characters.
 	function generateRoster(){
 
-		for(i=0; i<4; i++){
+		var fighters=Math.floor(Math.random()*(nameList.length-4 +1)+4);
+
+		for(i=0; i<fighters; i++){
 			//create a button
 			var characterButton = $("<button>");
 			characterButton.attr("data-character_id", i);
@@ -66,7 +70,7 @@ $(document).ready(function() {
 			$(".roster").append(characterButton);		
 		}
 
-		for(i=0; i<4; i++){
+		for(i=0; i<fighters; i++){
 			$(".characterBtn h4 span").addClass("name");
 			$(".characterBtn  img").addClass("image");
 			$(".characterBtn h5 span").addClass("health");
@@ -85,29 +89,12 @@ $(document).ready(function() {
 		})
 	}
 
-	function attack(attacker, defender){
-
-		if(character[defender].health >= 0){
-			character[defender].health=Math.max(0, character[defender].health-character[attacker].attack);
-		}
-
-		$(".defender .health" ).html(character[defender].health);
-		$(".gameLog").append(character[attacker].name + " attacks " + character[defender].name + " for " + character[attacker].attack + " damage." + "<br>");
-
-		newAttack = character[attacker].attack+baseAttack;
-	}
-
-	function counterAttack(attacker, defender){
-		if (character[attacker].health >= 0){
-			character[attacker].health=Math.max(0, character[attacker].health-character[defender].counterAttack);
-		}
-
-		$(".attacker .health").html(character[attacker].health);
-		$(".gameLog").append(character[defender].name + " attacks " + character[attacker].name + " for " + character[defender].counterAttack + " damage." + "<br>");
-	}
-
+	//This is for when we select a character
 	function selectCharacter(){
-		
+
+		var a = $(".attacker").data("character_id");
+		var d = $(".defender").data("character_id");
+
 
 			if(!$("#currentCharacter").is(":empty") && !$("#defender").is(":empty")){
 				var i = $(this).data("character_id");
@@ -124,7 +111,18 @@ $(document).ready(function() {
 				baseAttack = character[i].attack;
 				$(this).prop("disabled",true);
 				$(".gameLog").empty();
-				$(".gameLog").append(character[i].name + " has joined the fight!" +"<br>");
+				// $(".gameLog").append(character[i].name + " has joined the fight!" +"<br>");
+
+				if($("#defender").is(":empty")){
+					$(".gameLog").append(character[i].name + " is waiting for a challenger!" +"<br>");
+				}
+
+				if(!$("#defender").is(":empty")){
+					$(".gameLog").append(character[i].name + " has challenged " + character[d].name +"!<br>");
+				}
+
+
+
 			}
 
 			else if($("#defender").is(":empty")){
@@ -135,11 +133,41 @@ $(document).ready(function() {
 				$("#defender").append(this);
 				$(this).prop("disabled",true);
 				$(".gameLog").empty();
-				$(".gameLog").append(character[i].name + " has joined the fight!" +"<br>");
+				// $(".gameLog").append(character[i].name + " has joined the fight!" +"<br>");
+				$(".gameLog").append(character[i].name + " has challenged " + character[a].name +"!<br>");
 			}
 	}
 
+	//Player Attacks
+	function attack(attacker, defender){
+			if(character[defender].health >= 0){
+				character[defender].health=Math.max(0, character[defender].health-character[attacker].attack);
+			}
+
+			$(".defender .health" ).html(character[defender].health);
+			$(".gameLog").append(character[attacker].name + " attacks " + character[defender].name + " for " + character[attacker].attack + " damage." + "<br>");
+
+			newAttack = character[attacker].attack+baseAttack;
+	}
+
+	//Defender Attacks
+	function counterAttack(attacker, defender){
+		if (character[attacker].health >= 0){
+			character[attacker].health=Math.max(0, character[attacker].health-character[defender].counterAttack);
+		}
+
+		$(".attacker .health").html(character[attacker].health);
+		$(".gameLog").append(character[defender].name + " attacks " + character[attacker].name + " for " + character[defender].counterAttack + " damage." + "<br>");
+	}
+
+	//This is how we fight (attack() and counterAttack() are run here)
 	function battle(){
+
+		var a = $(".attacker").data("character_id");
+		var d = $(".defender").data("character_id");
+
+		// console.log(character[a].name);
+		// console.log(character[d].name);
 
 		if(GameOver()){
 			newGame();
@@ -147,19 +175,23 @@ $(document).ready(function() {
 
 		$(".gameLog").empty();
 
-		if($("#currentCharacter").is(":empty")){	
-
-			$(".gameLog").append("Choose a fighter!" + "<br>");
+		if($("#currentCharacter").is(":empty") && $("#defender").is(":empty")){	
+			$(".gameLog").append("Choose a fighter!" + "<br>")
 		}
 
-		if(!$("#currentCharacter").is(":empty") && $("#defender").is(":empty")){	
+		if(!$("#currentCharacter").is(":empty") && $("#defender").is(":empty")){
+			// $(".gameLog").append("There are no enemies here!" + "<br>");
+			$(".gameLog").append(character[a].name + " is waiting for a challenger!" + "<br>");
+		}
 
-			$(".gameLog").append("There are no enemies here!" + "<br>");
+		if($("#currentCharacter").is(":empty") && !$("#defender").is(":empty")){
+			$(".gameLog").append(character[d].name + " is waiting for a challenger!" + "<br>");
 		}
 
 		else{
-			var a = $(".attacker").data("character_id");
-			var d = $(".defender").data("character_id");
+		
+			// var a = $(".attacker").data("character_id");
+			// var d = $(".defender").data("character_id");
 
 			if(character[a].health>0){
 				attack(a,d);
@@ -190,11 +222,9 @@ $(document).ready(function() {
 		}
 
 		GameOver();
-
 	}
 
-
-
+	//This is for when all lives are lost or all enemies are dead.
 	function GameOver(){
 		if($(".roster").is(":empty") && $("#defender").is(":empty")){
 			$("#attackBtn").html("PLAY AGAIN");
@@ -210,9 +240,9 @@ $(document).ready(function() {
 		else{
 			return false;
 		}
-
 	}
 
+	//starts a new game
 	function newGame(){
 		$(".gameLog").empty();
 		$("#currentCharacter").empty();
@@ -243,10 +273,8 @@ $(document).ready(function() {
 		$("#attackBtn").on("click", battle);
 	}
 //=========================================================================
+	console.log("# of char" + nameList.length);
 
-	console.log(nameList[0]);
-	console.log(nameList[0].charName);
-//Gameplay
 	shuffle(nameList);
 	
 	for (i=0; i<nameList.length; i++){

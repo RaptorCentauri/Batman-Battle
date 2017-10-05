@@ -106,6 +106,7 @@ body{
 		justify-content: center;
 		align-items: center;
 		justify-self: center;
+		min-height: 450px;
 		/*align-self: center;*/
 		width: 80%;
 		/*min-height: 3fr;*/

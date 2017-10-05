@@ -231,7 +231,7 @@ $(document).ready(function() {
 //=========================================================================
 
 	console.log(nameList[0]);
-	console.log(nameList[0.name]);
+	console.log(nameList[0].name]);
 //Gameplay
 
 	for (i=0; i<nameList.length; i++){

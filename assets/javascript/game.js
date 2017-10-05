@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 //Variable Declarations
 //	var nameList = [["Batman", "assets/images/Batman.jpg"], ["Joker", "assets/images/Joker.jpg"], ["Red Hood", "assets/images/Redhood.jpg"], ["Robin", "assets/images/Robin.jpg"]];
-	var nameList = [{charName: "Batman", charImage: "assets/images/Batman.jpg"}, {charName: "Joker", charImage: "assets/images/Joker.jpg"}, {charName: "Red Hood", charImage: "assets/images/Redhood.jpg"}, {charName: "Robin", charImage: "assets/images/Robin.jpg"} ]
+	var nameList = [{charName: "Batman", charImage: "assets/images/Batman.jpg"}, {charName: "Joker", charImage: "assets/images/Joker.jpg"}, {charName: "Red Hood", charImage: "assets/images/Redhood.jpg"}, {charName: "Robin", charImage: "assets/images/Robin.jpg"}, {charName: "Riddler", charImage:""} ]
 	//var imageList = ["assets/images/Batman.jpg", "assets/images/Joker.jpg", "assets/images/Redhood.jpg", "assets/images/Robin.jpg"];
 	var healthList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(250-100 +1))+100);
 	var attackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(50-10 +1))+10);

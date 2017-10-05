@@ -7,7 +7,7 @@
 // All that is needed to add characters to the game is to add the name to the nameList array. An image can be added at the respective index in imageList Array
 // however the game will still function without it.
 
-$(document).ready(function() {
+$(document).ready( function() {
 
 //Variable Declarations
 	var nameList = [{charName: "Batman", charImage: "assets/images/Batman.jpg"}, {charName: "Joker", charImage: "assets/images/Joker.jpg"}, {charName: "Red Hood", charImage: "assets/images/Redhood.jpg"}, 
@@ -111,7 +111,6 @@ $(document).ready(function() {
 				baseAttack = character[i].attack;
 				$(this).prop("disabled",true);
 				$(".gameLog").empty();
-				// $(".gameLog").append(character[i].name + " has joined the fight!" +"<br>");
 
 				if($("#defender").is(":empty")){
 					$(".gameLog").append(character[i].name + " is waiting for a challenger!" +"<br>");
@@ -120,7 +119,6 @@ $(document).ready(function() {
 				if(!$("#defender").is(":empty")){
 					$(".gameLog").append(character[i].name + " has challenged " + character[d].name +"!<br>");
 				}
-
 
 
 			}
@@ -133,7 +131,6 @@ $(document).ready(function() {
 				$("#defender").append(this);
 				$(this).prop("disabled",true);
 				$(".gameLog").empty();
-				// $(".gameLog").append(character[i].name + " has joined the fight!" +"<br>");
 				$(".gameLog").append(character[i].name + " has challenged " + character[a].name +"!<br>");
 			}
 	}
@@ -166,9 +163,6 @@ $(document).ready(function() {
 		var a = $(".attacker").data("character_id");
 		var d = $(".defender").data("character_id");
 
-		// console.log(character[a].name);
-		// console.log(character[d].name);
-
 		if(GameOver()){
 			newGame();
 		}
@@ -180,7 +174,6 @@ $(document).ready(function() {
 		}
 
 		if(!$("#currentCharacter").is(":empty") && $("#defender").is(":empty")){
-			// $(".gameLog").append("There are no enemies here!" + "<br>");
 			$(".gameLog").append(character[a].name + " is waiting for a challenger!" + "<br>");
 		}
 
@@ -190,9 +183,6 @@ $(document).ready(function() {
 
 		else{
 		
-			// var a = $(".attacker").data("character_id");
-			// var d = $(".defender").data("character_id");
-
 			if(character[a].health>0){
 				attack(a,d);
 				character[a].attack=newAttack;
@@ -289,12 +279,6 @@ $(document).ready(function() {
 
 	$("#attackBtn").on("click", battle);
 
-//=========================================================================
+	//=========================================================================
 
 });
-
-
-
-
-
-

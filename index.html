@@ -5,26 +5,29 @@
 	<!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css"> -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
 
+<div class="gameTitle"><h2>Batman Battle!</h2></div>
+
 <div class="wrapper">
 
-	<div class="gameTitle"><h2>Batman Battle!</h2></div>
 
 <!-- Character Selection -->
 	<div class="roster"></div>
 
 <!-- Battle Section -->
+<div class="gamePlay">
 	<div class="battleBox">
 		<div id="currentCharacter"></div>
 		<button id="attackBtn"><h3>FIGHT!</h3></button>
 		<div id="defender"></div>
 	</div>
-
 <!-- Gameplay Logs -->
 	<div class="gameLog"></div>
-
+</div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

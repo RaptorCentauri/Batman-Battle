@@ -216,6 +216,8 @@ $(document).ready(function() {
 		newAttack=null;
 		baseAttack=null;
 
+		nameList.sort(function(a, b){return 0.5 - Math.random()});
+		
 		for (i=0; i<nameList.length; i++){
 			createCharacter(i);
 		}
@@ -234,6 +236,8 @@ $(document).ready(function() {
 	console.log(nameList[0].charName);
 //Gameplay
 
+	nameList.sort(function(a, b){return 0.5 - Math.random()});
+	
 	for (i=0; i<nameList.length; i++){
 		createCharacter(i);
 	}

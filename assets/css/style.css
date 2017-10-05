@@ -129,11 +129,11 @@ body{
 	}
 
 	#currentCharacter{
-		justify-self: end;
+		justify-self: center;
 	}
 
 	#defender{
-		justify-self: start;
+		justify-self: center;
 	}
 /*=====================================*/
 

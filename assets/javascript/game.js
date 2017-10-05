@@ -11,7 +11,9 @@ $(document).ready(function() {
 
 //Variable Declarations
 //	var nameList = [["Batman", "assets/images/Batman.jpg"], ["Joker", "assets/images/Joker.jpg"], ["Red Hood", "assets/images/Redhood.jpg"], ["Robin", "assets/images/Robin.jpg"]];
-	var nameList = [{charName: "Batman", charImage: "assets/images/Batman.jpg"}, {charName: "Joker", charImage: "assets/images/Joker.jpg"}, {charName: "Red Hood", charImage: "assets/images/Redhood.jpg"}, {charName: "Robin", charImage: "assets/images/Robin.jpg"}]
+	var nameList = [{charName: "Batman", charImage: "assets/images/Batman.jpg"}, {charName: "Joker", charImage: "assets/images/Joker.jpg"}, {charName: "Red Hood", charImage: "assets/images/Redhood.jpg"}, 
+		{charName: "Robin", charImage: "assets/images/Robin.jpg"}, {charName: "Catwoman", charImage: "assets/images/Catwoman.jpg" }, {charName: "Deathstroke", charImage:"assets/images/Deathstroke.jpg" }, {charName: "Mr. Freeze", charImage:"assets/images/MrFreeze.jpg" }, 
+		{charName: "Nightwing", charImage:"assets/images/Nightwing.jpg" }, {charName:"Penguin", charImage:"assets/images/Penguin.jpg" }, {charName:"Two Face", charImage:"assets/images/TwoFace.jpg" }  ]
 	//var imageList = ["assets/images/Batman.jpg", "assets/images/Joker.jpg", "assets/images/Redhood.jpg", "assets/images/Robin.jpg"];
 	var healthList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(250-100 +1))+100);
 	var attackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(50-10 +1))+10);
@@ -45,7 +47,7 @@ $(document).ready(function() {
 
 	function generateRoster(){
 
-		for(i=0; i<nameList.length; i++){
+		for(i=0; i<4; i++){
 			//create a button
 			var characterButton = $("<button>");
 			characterButton.attr("data-character_id", i);
@@ -64,7 +66,7 @@ $(document).ready(function() {
 			$(".roster").append(characterButton);		
 		}
 
-		for(i=0; i<nameList.length; i++){
+		for(i=0; i<4; i++){
 			$(".characterBtn h4 span").addClass("name");
 			$(".characterBtn  img").addClass("image");
 			$(".characterBtn h5 span").addClass("health");
@@ -116,6 +118,8 @@ $(document).ready(function() {
 			if($("#currentCharacter").is(":empty")){
 				$(this).addClass("attacker");
 				var i = $(this).data("character_id");
+				$(this).children("h4").css("background", "rgba(0,110,0, 0.45)");  
+				$(this).children("h5").css("background", "rgba(0,110,0, 0.45)");
 				$("#currentCharacter").append(this);
 				baseAttack = character[i].attack;
 				$(this).prop("disabled",true);
@@ -126,8 +130,8 @@ $(document).ready(function() {
 			else if($("#defender").is(":empty")){
 				$(this).addClass("defender");
 				var i = $(this).data("character_id");
-				$(this).children("h4").css("background", "rgba(148,17,0, 0.45)")
-				$(this).children("h5").css("background", "rgba(148,17,0, 0.45)")
+				$(this).children("h4").css("background", "rgba(148,17,0, 0.45)");
+				$(this).children("h5").css("background", "rgba(148,17,0, 0.45)");
 				$("#defender").append(this);
 				$(this).prop("disabled",true);
 				$(".gameLog").empty();

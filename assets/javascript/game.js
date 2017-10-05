@@ -27,7 +27,7 @@ $(document).ready(function() {
 //Function Declarations
 	function createCharacter(i){
 		character[i] = {
-			name: nameList[i].name,
+			name: nameList[i].charName,
 			//image: nameList[[i],[1]],
 			health: healthList[i],
 			attack: attackList[i],
@@ -231,7 +231,7 @@ $(document).ready(function() {
 //=========================================================================
 
 	console.log(nameList[0]);
-	//console.log(nameList[0].name);
+	console.log(nameList[0].charName);
 //Gameplay
 
 	for (i=0; i<nameList.length; i++){

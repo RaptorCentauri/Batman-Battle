@@ -11,7 +11,7 @@ $(document).ready(function() {
 
 //Variable Declarations
 //	var nameList = [["Batman", "assets/images/Batman.jpg"], ["Joker", "assets/images/Joker.jpg"], ["Red Hood", "assets/images/Redhood.jpg"], ["Robin", "assets/images/Robin.jpg"]];
-	var nameList = [{name: "Batman", image: "assets/images/Batman.jpg"}, {name: "Joker", image: "assets/images/Joker.jpg"}, {name: "Red Hood", image: "assets/images/Redhood.jpg"}, {name: "Robin", image: "assets/images/Robin.jpg"} ]
+	var nameList = [{charName: "Batman", image: "assets/images/Batman.jpg"}, {charName: "Joker", image: "assets/images/Joker.jpg"}, {charName: "Red Hood", image: "assets/images/Redhood.jpg"}, {charName: "Robin", image: "assets/images/Robin.jpg"} ]
 	//var imageList = ["assets/images/Batman.jpg", "assets/images/Joker.jpg", "assets/images/Redhood.jpg", "assets/images/Robin.jpg"];
 	var healthList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(250-100 +1))+100);
 	var attackList= Array.from({length: nameList.length}, () => Math.floor(Math.random()*(50-10 +1))+10);
@@ -27,7 +27,7 @@ $(document).ready(function() {
 //Function Declarations
 	function createCharacter(i){
 		character[i] = {
-			name: nameList[i.name],
+			name: nameList[i].name,
 			//image: nameList[[i],[1]],
 			health: healthList[i],
 			attack: attackList[i],

@@ -52,6 +52,7 @@ $(document).ready( function() {
 		var fighters=Math.floor(Math.random()*(nameList.length-4 +1)+4);
 
 		for(i=0; i<fighters; i++){
+
 			//create a button
 			var characterButton = $("<button>");
 			characterButton.attr("data-character_id", i);
@@ -61,7 +62,7 @@ $(document).ready( function() {
 			characterButton.append("<h4><span></span></h4>");
 
 			//set the button image
-			characterButton.append("<img>");
+			// characterButton.append("<img>");
 
 			//create the health label
 			characterButton.append("<h5><span></span></h5>");
@@ -72,7 +73,7 @@ $(document).ready( function() {
 
 		for(i=0; i<fighters; i++){
 			$(".characterBtn h4 span").addClass("name");
-			$(".characterBtn  img").addClass("image");
+			// $(".characterBtn  img").addClass("image");
 			$(".characterBtn h5 span").addClass("health");
 		}
 
@@ -80,9 +81,12 @@ $(document).ready( function() {
 			$(this).html(character[i].name);
 		})
 
-		$(".image").each(function(i){
-			$(this).attr("src", character[i].image);
+		$(".characterBtn").each(function(i){
+			$(this).css("background", "url(" + character[i].image + ")");
 		})
+		// $(".image").each(function(i){
+		// 	$(this).attr("src", character[i].image);
+		// })
 
 		$(".health").each(function(i){
 			$(this).html(character[i].health);
@@ -105,8 +109,8 @@ $(document).ready( function() {
 			if($("#currentCharacter").is(":empty")){
 				$(this).addClass("attacker");
 				var i = $(this).data("character_id");
-				$(this).children("h4").css("background", "rgba(0,110,0, 0.45)");  
-				$(this).children("h5").css("background", "rgba(0,110,0, 0.45)");
+				$(this).children("h4").children("span").css("background", "rgba(0,110,0, 0.45)");  
+				$(this).children("h5").children("span").css("background", "rgba(0,110,0, 0.45)");
 				$("#currentCharacter").append(this);
 				baseAttack = character[i].attack;
 				$(this).prop("disabled",true);
@@ -126,8 +130,8 @@ $(document).ready( function() {
 			else if($("#defender").is(":empty")){
 				$(this).addClass("defender");
 				var i = $(this).data("character_id");
-				$(this).children("h4").css("background", "rgba(148,17,0, 0.45)");
-				$(this).children("h5").css("background", "rgba(148,17,0, 0.45)");
+				$(this).children("h4").children("span").css("background", "rgba(148,17,0, 0.45)");
+				$(this).children("h5").children("span").css("background", "rgba(148,17,0, 0.45)");
 				$("#defender").append(this);
 				$(this).prop("disabled",true);
 				$(".gameLog").empty();
